@@ -25,7 +25,12 @@ export async function registerController(req, res) {
         id: user._id
     }, process.env.JWT_SECRET)
 
-    res.cookie("token", token, { maxage: 1000 * 60 * 60 })
+    res.cookie("token", token, { 
+        maxAge: 1000 * 60 * 60,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    })
 
     res.status(201).json({
         message: "Registered Successfully",
@@ -58,10 +63,10 @@ export async function loginController(req, res) {
     }, process.env.JWT_SECRET)
 
     res.cookie("token", token, { 
-        maxage: 1000 * 60 * 60 * 24 ,
+        maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
-        secure:true,
-        sameSite:"none"
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
     })
 
     res.json({
