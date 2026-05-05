@@ -5,11 +5,12 @@ import questionRoute from "./routes/question.route.js"
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
+
 dotenv.config();
 
 const app = express();
 
-const frontendOrigin = process.env.FRONTEND_URL || "https://frontendnp2.onrender.com";
+const frontendOrigin = process.env.FRONTEND_URL || process.env.NODE_ENV === 'production' ? "https://frontendnp2.onrender.com" : "http://localhost:5173";
 
 app.use(cors({
   origin: frontendOrigin,

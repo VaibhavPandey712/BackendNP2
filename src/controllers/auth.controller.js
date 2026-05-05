@@ -1,7 +1,10 @@
 import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
+import dotenv from "dotenv";
+import axios from "axios";
 
+dotenv.config();
 
 export async function registerController(req, res) {
     const { username, password } = req.body;
