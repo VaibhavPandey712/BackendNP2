@@ -6,7 +6,7 @@ async function authMiddleware(req,res,next){
     
 
     if(!token){
-        return res.json({
+        return res.status(401).json({
             message:"Token not received"
         })
     }
@@ -16,13 +16,18 @@ async function authMiddleware(req,res,next){
         const user=await userModel.findOne({
             _id:data.id
         })
+        if (!user) {
+            return res.status(401).json({
+                message: "User not found"
+            })
+        }
         req.user=user;
         next();
 
         
     }catch(err){
-        res.json({
-            message:"Error occured"
+        res.status(401).json({
+            message:"Invalid token"
         })
     }
     
