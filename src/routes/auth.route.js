@@ -12,10 +12,18 @@ router.post("/login", loginController)
 
 
 
-router.get("/logout", (req, res) => {
+import authMiddleware from "../middlewares/auth.middleware.js"
+
+router.get("/logout", authMiddleware, (req, res) => {
     res.clearCookie("token")
     res.json({
         message: "User Logged out successfully"
+    })
+})
+
+router.get("/me", authMiddleware, async (req, res) => {
+    res.json({
+        username: req.user.username
     })
 })
 

@@ -9,9 +9,14 @@ dotenv.config();
 
 const app = express();
 
+const frontendOrigin = process.env.FRONTEND_URL || "https://frontendnp2.onrender.com";
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "https://frontendnp2.onrender.com",
-    credentials: true
+  origin: frontendOrigin,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 204
 }));
 app.use(cookieParser());
 app.use(express.json());
