@@ -33,7 +33,7 @@ export async function getCodeforcesQuestions(req, res) {
 }
 
 export async function deleteQuestion(req, res) {
-    const { id } = req.params;
+    const { id } = req.body;
     await postModel.findOneAndDelete({
         _id: id,
         user: req.user._id
